@@ -30,6 +30,8 @@ Note that you can deploy many instances of this server on the same machine (to t
     /service/geoh15/run       # A virtual instance
     /service/geoh16/run       # A virtual instance
 
+Note that a virtual instance here is roughly equivalent to a thread in a typical web server implementation. Web servers such as Apache might have well over 100 threads, but it's not yet clear whether that many instances would be useful here.
+
 Note that if you are using ubuntu's implementation of daemontools you'll probably have to make adjustments which depend on the version of ubuntu which you are using. For example, in a current version of ubuntu the run script must be placed in /var/lib/supervise/geoh\*/ and /etc/service/geoh\* is meant to be a symbolic link to that directory.
 
 For this example, the executable (```chmod 755 run```) run scripts in the virtual instances would all look something like this:
