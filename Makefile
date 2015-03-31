@@ -1,11 +1,11 @@
 main: main.c timeout.h mapdate.h refdata.h localdata.h
 	cc $@.c -o $@
 
-distribute: main ip.map.bz2 ip.map.gz distribute.sh
-	./testlocal.test
+distribute: main ip.map.bz2 ip.map.gz distribute.sh local
+	./testlocal
 	./distribute.sh
 	. $$HOME/.ssh-agent.sh && ssh -v ubuntu@54.204.234.199 sh src/deployprod
-	./testremote.test
+	./testremote
 
 mapdate.h: buildmapdate
 	./$<
@@ -37,19 +37,20 @@ country-state.csv: ip-country-state.csv
 	mv $@.tmp $@
 
 ip.map.new: buildmap country-state.csv ip-nub.csv
+	rm -f ip.map.new
 	./buildmap
 
-ip.map.gz: ip.map.new
-	gzip -9c <ip.map.new >t.gz
+ip.map: ip.map.new
+	rm -f ip.map
+	ln ip.map.new ip.map
+
+ip.map.gz: ip.map
+	gzip -9c <ip.map >t.gz
 	mv t.gz ip.map.gz
 
-ip.map.bz2: ip.map.new
+ip.map.bz2: ip.map
 	bzip2 -c <ip.map >t.bz2
 	mv t.bz2 ip.map.bz2
-
-ip.map: ip.map.bz2
-	bzip -dc <ip.map.bz2 >t.bz2
-	mv t.bz2 ip.map
 
 local: local.c
 

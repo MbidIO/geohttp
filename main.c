@@ -218,7 +218,7 @@ long strtol10(char *p, char**end) {
 	while (' '==*p) p++;
 	while (isadigit[*p]) {
 		r*= 10;
-		r+= *p-'0';
+		r+= (*p++)-'0';
 	}
 	*end= p;
 	return r;
