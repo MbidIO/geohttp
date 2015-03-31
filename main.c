@@ -197,14 +197,40 @@ int initwordforming() {
 	return 0;
 }
 
+int isdigit[256];
+init initdigit() {
+	isdigit['0']= 
+	isdigit['1']= 
+	isdigit['2']= 
+	isdigit['3']= 
+	isdigit['4']= 
+	isdigit['5']= 
+	isdigit['6']= 
+	isdigit['7']= 
+	isdigit['8']= 
+	isdigit['9']= 1
+}
+
+/* strol giving bogus endptr in ec2 instance, so don't use strtol */
+long strtol10(char *p, char**end) {
+	long r= 0;
+	while (' '==*p) p++;
+	while (isdigit[*p]) {
+		r*= 10;
+		r+= *p-'0';
+	}
+	*end= *p;
+	return r;
+}
+
 long txt2rawip(char *parse) {
-	long byte0= strtol(parse, &parse, 10);
+	long byte0= strtol10(parse, &parse);
 	if (byte0<0||byte0>255||'.'!=*parse++) return -1;
-	long byte1= strtol(parse, &parse, 10);
+	long byte1= strtol10(parse, &parse);
 	if (byte1<0||byte1>255||'.'!=*parse++) return -1;
-	long byte2= strtol(parse, &parse, 10);
+	long byte2= strtol10(parse, &parse);
 	if (byte2<0||byte2>255||'.'!=*parse++) return -1;
-	long byte3= strtol(parse, &parse, 10);
+	long byte3= strtol10(parse, &parse);
 	if (byte3<0||byte3>255) return -1;
 	return 256*(256*(256*byte0+byte1)+byte2)+byte3;
 }
@@ -464,6 +490,7 @@ int main(int c, char**v){
                 if (-1!=setuid(0)) die("regained root", 10);
         }
 	initwordforming();
+	initdigit();
 	pid= getpid();
         printf("process %d listening on port %d\n", pid, ntohs(listenaddr_in.sin_port));
 	fflush(stdout);
