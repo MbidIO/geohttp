@@ -12,10 +12,12 @@ mapdate.h: buildmapdate
 	./$<
 
 refdata.h: buildrefdata country-state.csv timeout.h
+	chmod +x buildrefdata
 	./buildrefdata country-state.csv >$@
 	grep US $@ >/dev/null || rm $@ $@
 
 localdata.h: buildlocaldata country-state.csv timeout.h
+	chmod +x buildlocaldata
 	./buildlocaldata country-state.csv >$@
 	grep US $@ >/dev/null || rm $@ $@
 
@@ -38,6 +40,7 @@ country-state.csv: ip-country-state.csv
 	mv $@.tmp $@
 
 ip.map.new: buildmap country-state.csv ip-nub.csv
+	chmod +x buildmap
 	rm -f ip.map.new
 	./buildmap
 
