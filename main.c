@@ -197,29 +197,30 @@ int initwordforming() {
 	return 0;
 }
 
-int isdigit[256];
-init initdigit() {
-	isdigit['0']= 
-	isdigit['1']= 
-	isdigit['2']= 
-	isdigit['3']= 
-	isdigit['4']= 
-	isdigit['5']= 
-	isdigit['6']= 
-	isdigit['7']= 
-	isdigit['8']= 
-	isdigit['9']= 1
+int isadigit[256];
+int initdigit() {
+	return
+	isadigit['0']= 
+	isadigit['1']= 
+	isadigit['2']= 
+	isadigit['3']= 
+	isadigit['4']= 
+	isadigit['5']= 
+	isadigit['6']= 
+	isadigit['7']= 
+	isadigit['8']= 
+	isadigit['9']= 1;
 }
 
 /* strol giving bogus endptr in ec2 instance, so don't use strtol */
 long strtol10(char *p, char**end) {
 	long r= 0;
 	while (' '==*p) p++;
-	while (isdigit[*p]) {
+	while (isadigit[*p]) {
 		r*= 10;
 		r+= *p-'0';
 	}
-	*end= *p;
+	*end= p;
 	return r;
 }
 
@@ -403,6 +404,7 @@ int handlefd(int ndx, int*n, int max) {
 			workfds[ndx].roff+= siz;
 			return WRITING;
 	}
+	exit(99); /* should never get here */
 }
 
 int serve(int listenfd) {
