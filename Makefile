@@ -2,6 +2,7 @@ main: main.c timeout.h mapdate.h refdata.h localdata.h
 	cc $@.c -o $@
 
 distribute: main ip.map.bz2 ip.map.gz distribute.sh local
+	chmod +x testlocal distribute.sh testremote
 	./testlocal
 	./distribute.sh
 	. $$HOME/.ssh-agent.sh && ssh -v ubuntu@54.204.234.199 sh src/deployprod
