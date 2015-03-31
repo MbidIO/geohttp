@@ -1,3 +1,6 @@
+#ifdef __linux__
+#define _GNU_SOURCE
+#endif
 #include <arpa/nameser.h>
 #include <ctype.h>
 #include <errno.h>
