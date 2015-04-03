@@ -19,7 +19,7 @@ my @topip=();
 my @ccode=();
 my @state=();
 my @scode=();
-open my $IP2Lcsv, 'ip2location/IP-COUNTRY-REGION-CITY.csv' or die $!;
+open my $IP2Lcsv, 'ip2location/IP-COUNTRY-REGION-CITY.CSV' or die $!;
 open my $icscsv, '>ip-country-state.csv.tmp' or die $!;
 while (my $row= $parser->getline($IP2Lcsv)) {
 	my ($lowip, $topip, $ccode, $cname, $rname, $city)= @$row;
