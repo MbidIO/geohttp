@@ -29,6 +29,7 @@
 *.hex
 
 # Build artifacts
+buildmap
 ip-country-state.csv
 ip-nub.csv
 ip.map
