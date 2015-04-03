@@ -42,7 +42,7 @@ for $cs (sort keys %cs) {
 close $cscsv;
 print "Wrote $ndx rows to country-state.csv\n";
 
-open $IP2Lcsv, 'ip2location/IP-COUNTRY-REGION-CITY.csv' or die $!;
+open $IP2Lcsv, 'ip2location/IP-COUNTRY-REGION-CITY.CSV' or die $!;
 open my $nubcsv, '>ip-nub.csv.tmp' or die $!;
 while (my $row= $parser->getline($IP2Lcsv)) {
 	my ($lowip, $topip, $ccode, $cname, $rname, $city)= @$row;
